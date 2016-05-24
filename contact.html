@@ -22,21 +22,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href='http://fonts.googleapis.com/css?family=Tangerine' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800' rel='stylesheet' type='text/css'>
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+
+<!--引用百度地图API-->
+<style type="text/css">
+    html,body{margin:0;padding:0;}
+    .iw_poi_title {color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap}
+    .iw_poi_content {font:12px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word}
+</style>
+<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+
 </head>
 <body>
 	<div class="header_top">
 		<div class="col-xs-6 logo">
-			<h1><a href="index.html">Nails</a></h1>
+			<h1><a href="index.html">Nail</a></h1>
 	    </div>
 		<div class="col-xs-6 nav">
            <ul class="menu">
 				<li class="item1"><a href="#"><img class="arrow-img" src="images/menu.png" alt=""/> <img src="images/nav_arrow.png" alt=""/></a>
 					<ul class="cute">
-						<li><a href="index.html">Home</a></li>
-						<li><a href="about.html">About</a></li>
-						<li><a href="services.html">Services</a></li>
-						<li><a href="typography.html">Features</a></li>
-						<li><a href="contact.html">Contact</a></li>
+						<li><a href="index.html">主页</a></li>
+						<li><a href="about.html">关于我</a></li>
+						<li><a href="services.html">服务</a></li>
+						<li><a href="typography.html">效果图</a></li>
+						<li><a href="contact.html">联系我</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -66,7 +75,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="about_banner">
    <div class="container">
 	 <div class="banner_desc about_desc">
-	    <h1>Contact</h1>
+	    <h1>联系方式</h1>
 	 </div>
    </div>
 </div>   
@@ -75,52 +84,122 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    	 <h2>How to find us</h2>
 	  <div class="col-md-9 map_left">
 	  	<div class="map">
-		  <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3150859.767904157!2d-96.62081048651531!3d39.536794757966845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1408111832978"> </iframe>
+		  <!--百度地图容器-->
+          <div style="width:100%;height:100%;border:#ccc solid 1px;" id="dituContent"></div>
 		</div>
 	  </div>
-	  <div class="col-md-3 contact_address">
-	  	<p>9870 St Vincent Place, <br>Glasgow, DC 45 Fr 45.</p>
-		  <dl>
-		     <dt></dt>
-		     <dd>Freephone : <span> +1 800 254 2478</span></dd>
-		     <dd>Telephone : <span> +1 800 547 5478</span></dd>
-		     <dd>FAX : <span>+1 800 658 5784</span></dd>
-		     <dd>E-mail :&nbsp; <a href="mailto@example.com">info(at)nails.com</a></dd>
-		  </dl>
-      </div>
    </div>
-</div>
-<div class="contact_grid">
-  <div class="container">
-  	<form>
-		<div class="col-md-4 left_grid">
-         	<input type="text" class="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
-		 	<input type="text" class="text" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}">
-		 	<input type="text" class="text" value="Subject" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Subject';}">
-		 </div>
-		<div class="col-md-8 right_grid">
-           <textarea value="Message" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message';}">Message</textarea>
-        </div>
-        <div class="form-submit1">
-           <input name="submit" type="submit" id="submit" value="Send Message">
-        </div>
-		<div class="clearfix"></div>
-    </form>
-  </div>
 </div>
 <div class="address">
 	<div class="container">
 		<div class="col-md-6 grid_3">
-		   <h4>Address : </h4>
-		   <p>On the other hand, we denounce with righteous</p>
+		   <h4>地址 : </h4>
+		   <p>唐山市路南区新街2层c区229</p>
         </div>
 		<div class="col-md-6 grid_3">
-		   <h4>Phones : </h4>
-		   <p>+1 2587 469 5874, +1 4875 986 7845</p>
+		   <h4>电话 : </h4>
+		   <p>15130597900</p>
         </div>
 		<div class="clearfix"> </div>
 	</div>
-	<div class="copy"><p>Copyright © 2015 Nails. All Rights Reserved.Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a></p></div>
+	<div class="copy"><p>Copyright © 2016 Nails. All Rights Reserved.Design by <a href="http://resume.biebibi.cn/" target="_blank">gehb</a></p></div>
 </div>
 </body>
+<script type="text/javascript">
+    //创建和初始化地图函数：
+    function initMap(){
+        createMap();//创建地图
+        setMapEvent();//设置地图事件
+        addMapControl();//向地图添加控件
+        addMarker();//向地图中添加marker
+    }
+    
+    //创建地图函数：
+    function createMap(){
+        var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+        var point = new BMap.Point(116.41613,40.061929);//定义一个中心点坐标
+        map.centerAndZoom(point,18);//设定地图的中心点和坐标并将地图显示在地图容器中
+        window.map = map;//将map变量存储在全局
+    }
+    
+    //地图事件设置函数：
+    function setMapEvent(){
+        map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+        map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+        map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+        map.enableKeyboard();//启用键盘上下左右键移动地图
+    }
+    
+    //地图控件添加函数：
+    function addMapControl(){
+        //向地图中添加缩放控件
+	var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+	map.addControl(ctrl_nav);
+        //向地图中添加缩略图控件
+	var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+	map.addControl(ctrl_ove);
+        //向地图中添加比例尺控件
+	var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+	map.addControl(ctrl_sca);
+    }
+    
+    //标注点数组
+    var markerArr = [{title:"我的位置",content:"我的位置",point:"116.416243|40.062067",isOpen:0,icon:{w:21,h:21,l:0,t:0,x:6,lb:5}}
+		 ];
+    //创建marker
+    function addMarker(){
+        for(var i=0;i<markerArr.length;i++){
+            var json = markerArr[i];
+            var p0 = json.point.split("|")[0];
+            var p1 = json.point.split("|")[1];
+            var point = new BMap.Point(p0,p1);
+			var iconImg = createIcon(json.icon);
+            var marker = new BMap.Marker(point,{icon:iconImg});
+			var iw = createInfoWindow(i);
+			var label = new BMap.Label(json.title,{"offset":new BMap.Size(json.icon.lb-json.icon.x+10,-20)});
+			marker.setLabel(label);
+            map.addOverlay(marker);
+            label.setStyle({
+                        borderColor:"#808080",
+                        color:"#333",
+                        cursor:"pointer"
+            });
+			
+			(function(){
+				var index = i;
+				var _iw = createInfoWindow(i);
+				var _marker = marker;
+				_marker.addEventListener("click",function(){
+				    this.openInfoWindow(_iw);
+			    });
+			    _iw.addEventListener("open",function(){
+				    _marker.getLabel().hide();
+			    })
+			    _iw.addEventListener("close",function(){
+				    _marker.getLabel().show();
+			    })
+				label.addEventListener("click",function(){
+				    _marker.openInfoWindow(_iw);
+			    })
+				if(!!json.isOpen){
+					label.hide();
+					_marker.openInfoWindow(_iw);
+				}
+			})()
+        }
+    }
+    //创建InfoWindow
+    function createInfoWindow(i){
+        var json = markerArr[i];
+        var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>"+json.content+"</div>");
+        return iw;
+    }
+    //创建一个Icon
+    function createIcon(json){
+        var icon = new BMap.Icon("http://app.baidu.com/map/images/us_mk_icon.png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
+        return icon;
+    }
+    
+    initMap();//创建和初始化地图
+</script>
 </html>		

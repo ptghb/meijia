@@ -23,6 +23,7 @@ body a{
 .logo{
 	padding:14px 0 0;
 	text-align:center;
+	background-color: #fff;
 }
 .logo h1{
 	font-family: 'Tangerine', cursive;

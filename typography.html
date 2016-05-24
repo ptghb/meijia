@@ -31,6 +31,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
 </script>
 <!------ light-box-script ----->
+
+<!--置顶-->
+<script type="text/javascript">
+window.onscroll = function(){
+    var ht=document.documentElement.scrollTop || document.body.scrollTop; 
+    if(ht>100){$(".header_top").css({"position":"fixed","top":"0px","margin":"auto","width":"100%","z-index":"99999"});}
+    else{$(".header_top").css({"position":"static"});}
+    }
+</script>
 </head>
 <body>
 	<div class="header_top">
